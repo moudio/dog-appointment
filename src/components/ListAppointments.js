@@ -2,13 +2,18 @@ import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 import Moment from 'react-moment';
 import { timers } from 'jquery';
-function ListAppointments({ appointments }) {
+function ListAppointments({ appointments, deleteAppointment }) {
   return (
     <div className="appointment-list item-list mb-3">
       {appointments.map((item) => (
         <div className="pet-item col media py-3" key={item.aptId}>
           <div className="mr-3">
-            <button className="pet-delete btn btn-sm btn-danger">
+            <button
+              className="pet-delete btn btn-sm btn-danger"
+              onClick={() => {
+                deleteAppointment(item);
+              }}
+            >
               <FaTimes />
             </button>
           </div>
