@@ -7,7 +7,9 @@ import ListAppointments from './ListAppointments';
 class App extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      myAppointments: [],
+    };
   }
 
   componentDidMount() {
@@ -32,7 +34,7 @@ class App extends Component {
               <div className="container">
                 <AddAppointments />
                 <SearchAppointments />
-                <ListAppointments />
+                <ListAppointments appointments={this.state.myAppointments} />
               </div>
             </div>
           </div>
