@@ -16,7 +16,8 @@ class App extends Component {
     fetch('./data.json')
       .then((response) => response.json())
       .then((result) => {
-        const apts = result.map((item) => {
+        const apts = result.map((item, index) => {
+          item.aptId = index;
           return item;
         });
         this.setState({
