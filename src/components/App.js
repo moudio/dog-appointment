@@ -10,6 +10,7 @@ class App extends Component {
     super();
     this.state = {
       myAppointments: [],
+      formDisplay: false,
     };
     this.deleteAppointment = this.deleteAppointment.bind(this);
   }
@@ -43,7 +44,7 @@ class App extends Component {
           <div className="row">
             <div className="col-md-12 bg-white">
               <div className="container">
-                <AddAppointments />
+                <AddAppointments formDisplay={this.state.formDisplay} />
                 <SearchAppointments />
                 <ListAppointments
                   appointments={this.state.myAppointments}

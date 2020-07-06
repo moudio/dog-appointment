@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 
-function AddAppointments() {
+function AddAppointments({ formDisplay }) {
   return (
-    <div className="card textcenter mt-3">
+    <div
+      className={
+        'card textcenter mt-3 ' + (formDisplay ? '' : 'add-appointment')
+      }
+    >
       <div className="apt-addheading card-header bg-primary text-white">
         Add Appointment
       </div>
