@@ -15,7 +15,6 @@ class AddAppointments extends Component {
   }
 
   handleAdd(e) {
-    console.log('handleAdd clcicked');
     e.preventDefault();
     let tempApt = {
       petName: this.state.petName,
