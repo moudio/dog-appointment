@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import PropTypes from 'prop-types';
@@ -61,6 +64,7 @@ class AddAppointments extends Component {
         }`}
       >
         <div
+          role="button"
           className="apt-addheading card-header bg-primary text-white"
           onClick={toggleForm}
         >
@@ -78,18 +82,19 @@ class AddAppointments extends Component {
                 readOnly
               >
                 Pet Name
-                <div className="col-md-10">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="petName"
-                    id="petName"
-                    placeholder="Pet's Name"
-                    value={petName}
-                    onChange={this.handleChange}
-                  />
-                </div>
+                {' '}
               </label>
+              <div className="col-md-10">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="petName"
+                  id="petName"
+                  placeholder="Pet's Name"
+                  value={petName}
+                  onChange={this.handleChange}
+                />
+              </div>
             </div>
 
             <div className="form-group form-row">
@@ -98,17 +103,18 @@ class AddAppointments extends Component {
                 htmlFor="ownerName"
               >
                 Pet Owner
-                <div className="col-md-10">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="ownerName"
-                    placeholder="Owner's Name"
-                    value={ownerName}
-                    onChange={this.handleChange}
-                  />
-                </div>
               </label>
+              <div className="col-md-10">
+                <input
+                  type="text"
+                  className="form-control"
+                  name="ownerName"
+                  id="ownerName"
+                  placeholder="Owner's Name"
+                  value={ownerName}
+                  onChange={this.handleChange}
+                />
+              </div>
             </div>
 
             <div className="form-group form-row">
@@ -117,52 +123,52 @@ class AddAppointments extends Component {
                 htmlFor="aptDate"
               >
                 Date
-                <div className="col-md-4">
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="aptDate"
-                    id="aptDate"
-                    value={aptDate}
-                    onChange={this.handleChange}
-                  />
-                </div>
               </label>
+              <div className="col-md-4">
+                <input
+                  type="date"
+                  className="form-control"
+                  name="aptDate"
+                  id="aptDate"
+                  value={aptDate}
+                  onChange={this.handleChange}
+                />
+              </div>
 
               <label
                 className="col-md-2 col-form-label text-md-right"
                 htmlFor="aptTime"
               >
                 Time
-                <div className="col-md-4">
-                  <input
-                    type="time"
-                    className="form-control"
-                    name="aptTime"
-                    id="aptTime"
-                    value={aptTime}
-                    onChange={this.handleChange}
-                  />
-                </div>
               </label>
+              <div className="col-md-4">
+                <input
+                  type="time"
+                  className="form-control"
+                  name="aptTime"
+                  id="aptTime"
+                  value={aptTime}
+                  onChange={this.handleChange}
+                />
+              </div>
             </div>
 
             <div className="form-group form-row">
               <label className="col-md-2 text-md-right" htmlFor="aptNotes">
                 Apt. Notes
-                <div className="col-md-10">
-                  <textarea
-                    className="form-control"
-                    rows="4"
-                    cols="50"
-                    name="aptNotes"
-                    id="aptNotes"
-                    placeholder="Appointment Notes"
-                    value={aptNotes}
-                    onChange={this.handleChange}
-                  />
-                </div>
               </label>
+              <div className="col-md-10">
+                <textarea
+                  className="form-control"
+                  rows="4"
+                  cols="50"
+                  name="aptNotes"
+                  id="aptNotes"
+                  placeholder="Appointment Notes"
+                  value={aptNotes}
+                  onChange={this.handleChange}
+                />
+              </div>
             </div>
 
             <div className="form-group form-row mb-0">

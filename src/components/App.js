@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { Component } from 'react';
 import '../css/App.css';
 
@@ -31,6 +32,7 @@ class App extends Component {
       .then((response) => response.json())
       .then((result) => {
         const apts = result.map((item) => {
+          // eslint-disable-next-line no-param-reassign
           item.aptId = lastIndex;
           this.setState({
             lastIndex: lastIndex + 1,
