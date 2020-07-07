@@ -20,7 +20,7 @@ class AddAppointments extends Component {
       petName: this.state.petName,
       ownerName: this.state.ownerName,
       aptDate: this.state.aptDate + ' ' + this.state.aptTime,
-      aptNode: this.state.aptNodes,
+      aptNotes: this.state.aptNotes,
     };
     this.props.addAppointments(tempApt);
     this.setState({
