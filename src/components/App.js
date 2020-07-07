@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 
+import { without, findIndex } from 'lodash';
 import AddAppointments from './AddAppointments';
 import SearchAppointments from './SearchAppointments';
 import ListAppointments from './ListAppointments';
-import { without, findIndex } from 'lodash';
+
 class App extends Component {
   constructor() {
     super();
@@ -25,8 +26,8 @@ class App extends Component {
   }
 
   updateInfo(name, value, id) {
-    let tempApts = this.state.myAppointments;
-    let aptIndex = findIndex(this.state.myAppointments, {
+    const tempApts = this.state.myAppointments;
+    const aptIndex = findIndex(this.state.myAppointments, {
       aptId: id,
     });
     tempApts[aptIndex][name] = value;
@@ -49,7 +50,7 @@ class App extends Component {
   }
 
   addAppointments(apt) {
-    let tempApts = this.state.myAppointments;
+    const tempApts = this.state.myAppointments;
     apt.aptId = this.state.lastIndex;
     tempApts.unshift(apt);
     this.setState({
@@ -101,27 +102,24 @@ class App extends Component {
     filteredApts = filteredApts
       .sort((a, b) => {
         if (
-          a[this.state.orderBy].toLowerCase() <
-          b[this.state.orderBy].toLowerCase()
+          a[this.state.orderBy].toLowerCase()
+          < b[this.state.orderBy].toLowerCase()
         ) {
           return -1 * order;
-        } else {
-          return 1 * order;
         }
+        return 1 * order;
       })
-      .filter((eachItem) => {
-        return (
-          eachItem['petName']
-            .toLowerCase()
-            .includes(this.state.queryText.toLocaleLowerCase()) ||
-          eachItem['ownerName']
-            .toLowerCase()
-            .includes(this.state.queryText.toLocaleLowerCase()) ||
-          eachItem['aptNotes']
+      .filter((eachItem) => (
+        eachItem.petName
+          .toLowerCase()
+          .includes(this.state.queryText.toLocaleLowerCase())
+          || eachItem.ownerName
             .toLowerCase()
             .includes(this.state.queryText.toLocaleLowerCase())
-        );
-      });
+          || eachItem.aptNotes
+            .toLowerCase()
+            .includes(this.state.queryText.toLocaleLowerCase())
+      ));
 
     return (
       <main className="page bg-white" id="petratings">

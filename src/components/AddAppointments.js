@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FaPlus } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 class AddAppointments extends Component {
   constructor(props) {
     super(props);
@@ -15,14 +16,17 @@ class AddAppointments extends Component {
   }
 
   handleAdd(e) {
+    const { petName, ownerName, aptDate, aptTime, aptNotes } = this.state;
+
+    const { addAppointments, toggleForm } = this.props;
     e.preventDefault();
-    let tempApt = {
-      petName: this.state.petName,
-      ownerName: this.state.ownerName,
-      aptDate: this.state.aptDate + ' ' + this.state.aptTime,
-      aptNotes: this.state.aptNotes,
+    const tempApt = {
+      petName,
+      ownerName,
+      aptDate: `${aptDate} ${aptTime}`,
+      aptNotes,
     };
-    this.props.addAppointments(tempApt);
+    addAppointments(tempApt);
     this.setState({
       petName: '',
       ownerName: '',
@@ -30,13 +34,13 @@ class AddAppointments extends Component {
       aptTime: '',
       aptNotes: '',
     });
-    this.props.toggleForm();
+    toggleForm();
   }
 
   handleChange(e) {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
+    const { target } = e;
+    const { value } = target;
+    const { name } = target;
     this.setState({
       [name]: value,
     });
@@ -45,10 +49,9 @@ class AddAppointments extends Component {
   render() {
     return (
       <div
-        className={
-          'card textcenter mt-3 ' +
-          (this.props.formDisplay ? '' : 'add-appointment')
-        }
+        className={`card textcenter mt-3 ${
+          this.props.formDisplay ? '' : 'add-appointment'
+        }`}
       >
         <div
           className="apt-addheading card-header bg-primary text-white"

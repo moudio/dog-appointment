@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 import Moment from 'react-moment';
+
 function ListAppointments({ appointments, deleteAppointment, updateInfo }) {
   return (
     <div className="appointment-list item-list mb-3">
@@ -23,9 +24,7 @@ function ListAppointments({ appointments, deleteAppointment, updateInfo }) {
                 className="pet-name"
                 contentEditable
                 suppressContentEditableWarning
-                onBlur={(e) =>
-                  updateInfo('petName', e.target.innerText, item.aptId)
-                }
+                onBlur={(e) => updateInfo('petName', e.target.innerText, item.aptId)}
               >
                 {item.petName}
               </span>
@@ -43,9 +42,7 @@ function ListAppointments({ appointments, deleteAppointment, updateInfo }) {
               <span
                 contentEditable
                 suppressContentEditableWarning
-                onBlur={(e) =>
-                  updateInfo('ownerName', e.target.innerText, item.aptId)
-                }
+                onBlur={(e) => updateInfo('ownerName', e.target.innerText, item.aptId)}
               >
                 {item.ownerName}
               </span>
@@ -54,9 +51,7 @@ function ListAppointments({ appointments, deleteAppointment, updateInfo }) {
               className="apt-notes"
               contentEditable
               suppressContentEditableWarning
-              onBlur={(e) =>
-                updateInfo('aptNotes', e.target.innerText, item.aptId)
-              }
+              onBlur={(e) => updateInfo('aptNotes', e.target.innerText, item.aptId)}
             >
               {item.aptNotes}
             </div>
