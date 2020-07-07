@@ -12,12 +12,20 @@ class App extends Component {
       myAppointments: [],
       formDisplay: false,
       lastIndex: 0,
-      orderBy: 'ownerName',
+      orderBy: 'petName',
       orderDir: 'desc',
     };
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
     this.addAppointments = this.addAppointments.bind(this);
+    this.changeOrder = this.changeOrder.bind(this);
+  }
+
+  changeOrder(order, dir) {
+    this.setState({
+      orderBy: order,
+      orderDir: dir,
+    });
   }
 
   addAppointments(apt) {
@@ -76,6 +84,8 @@ class App extends Component {
         b[this.state.orderBy].toLowerCase()
       ) {
         return -1 * order;
+      } else {
+        return 1 * order;
       }
     });
 
@@ -90,7 +100,11 @@ class App extends Component {
                   toggleForm={this.toggleForm}
                   addAppointments={this.addAppointments}
                 />
-                <SearchAppointments />
+                <SearchAppointments
+                  orderBy={this.state.orderBy}
+                  orderDir={this.state.orderDir}
+                  changeOrder={this.changeOrder}
+                />
                 <ListAppointments
                   appointments={filteredApts}
                   deleteAppointment={this.deleteAppointment}
