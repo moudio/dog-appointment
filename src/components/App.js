@@ -14,17 +14,25 @@ class App extends Component {
       lastIndex: 0,
       orderBy: 'petName',
       orderDir: 'desc',
+      queryText: '',
     };
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
     this.addAppointments = this.addAppointments.bind(this);
     this.changeOrder = this.changeOrder.bind(this);
+    this.searchApts = this.searchApts.bind(this);
   }
 
   changeOrder(order, dir) {
     this.setState({
       orderBy: order,
       orderDir: dir,
+    });
+  }
+
+  searchApts(query) {
+    this.setState({
+      queryText: query,
     });
   }
 
@@ -78,16 +86,30 @@ class App extends Component {
       order = -1;
     }
 
-    filteredApts.sort((a, b) => {
-      if (
-        a[this.state.orderBy].toLowerCase() <
-        b[this.state.orderBy].toLowerCase()
-      ) {
-        return -1 * order;
-      } else {
-        return 1 * order;
-      }
-    });
+    filteredApts = filteredApts
+      .sort((a, b) => {
+        if (
+          a[this.state.orderBy].toLowerCase() <
+          b[this.state.orderBy].toLowerCase()
+        ) {
+          return -1 * order;
+        } else {
+          return 1 * order;
+        }
+      })
+      .filter((eachItem) => {
+        return (
+          eachItem['petName']
+            .toLowerCase()
+            .includes(this.state.queryText.toLocaleLowerCase()) ||
+          eachItem['ownerName']
+            .toLowerCase()
+            .includes(this.state.queryText.toLocaleLowerCase()) ||
+          eachItem['aptNotes']
+            .toLowerCase()
+            .includes(this.state.queryText.toLocaleLowerCase())
+        );
+      });
 
     return (
       <main className="page bg-white" id="petratings">
@@ -104,6 +126,7 @@ class App extends Component {
                   orderBy={this.state.orderBy}
                   orderDir={this.state.orderDir}
                   changeOrder={this.changeOrder}
+                  searchApts={this.searchApts}
                 />
                 <ListAppointments
                   appointments={filteredApts}
