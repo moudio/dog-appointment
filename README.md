@@ -2,7 +2,7 @@
 ![screenshot](./src/pictures/appointdog_screenshot.jpg)
 ## Technologies
 
--React
+- React
 - HTML
 - CSS
 
