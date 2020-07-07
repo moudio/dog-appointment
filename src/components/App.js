@@ -11,9 +11,21 @@ class App extends Component {
     this.state = {
       myAppointments: [],
       formDisplay: false,
+      lastIndex: 0,
     };
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
+    this.addAppointments = this.addAppointments.bind(this);
+  }
+
+  addAppointments(apt) {
+    let tempApts = this.state.myAppointments;
+    apt.aptId = this.state.lastIndex;
+    tempApts.unshift(apt);
+    this.setState({
+      myAppointments: tempApts,
+      lastIndex: this.state.lastIndex + 1,
+    });
   }
 
   toggleForm() {
@@ -34,8 +46,11 @@ class App extends Component {
     fetch('./data.json')
       .then((response) => response.json())
       .then((result) => {
-        const apts = result.map((item, index) => {
-          item.aptId = index;
+        const apts = result.map((item) => {
+          item.aptId = this.state.lastIndex;
+          this.setState({
+            lastIndex: this.state.lastIndex + 1,
+          });
           return item;
         });
         this.setState({
@@ -54,6 +69,7 @@ class App extends Component {
                 <AddAppointments
                   formDisplay={this.state.formDisplay}
                   toggleForm={this.toggleForm}
+                  addAppointments={this.addAppointments}
                 />
                 <SearchAppointments />
                 <ListAppointments
