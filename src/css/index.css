@@ -1,7 +1,6 @@
 /**  Basic Page CSS **/
 body {
   font-weight: 200;
-  background-color: #337ab7;
 }
 
 header a,
@@ -17,4 +16,12 @@ footer {
 .btn-primary {
   background-color: #377bb5 !important;
   border: inherit;
+}
+
+.jumbotron {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)),
+    url('../pictures/background.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }

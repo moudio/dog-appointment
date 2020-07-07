@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 import Moment from 'react-moment';
-import { timers } from 'jquery';
 function ListAppointments({ appointments, deleteAppointment, updateInfo }) {
   return (
     <div className="appointment-list item-list mb-3">
