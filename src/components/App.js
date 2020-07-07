@@ -25,15 +25,22 @@ class App extends Component {
     this.updateInfo = this.updateInfo.bind(this);
   }
 
-  updateInfo(name, value, id) {
-    const tempApts = this.state.myAppointments;
-    const aptIndex = findIndex(this.state.myAppointments, {
-      aptId: id,
-    });
-    tempApts[aptIndex][name] = value;
-    this.setState({
-      myAppointments: tempApts,
-    });
+  componentDidMount() {
+    const { lastIndex } = this.state;
+    fetch('./data.json')
+      .then((response) => response.json())
+      .then((result) => {
+        const apts = result.map((item) => {
+          item.aptId = lastIndex;
+          this.setState({
+            lastIndex: lastIndex + 1,
+          });
+          return item;
+        });
+        this.setState({
+          myAppointments: apts,
+        });
+      });
   }
 
   changeOrder(order, dir) {
@@ -50,50 +57,55 @@ class App extends Component {
   }
 
   addAppointments(apt) {
-    const tempApts = this.state.myAppointments;
-    apt.aptId = this.state.lastIndex;
+    const { myAppointments, lastIndex } = this.state;
+    const tempApts = myAppointments;
+    apt.aptId = lastIndex;
     tempApts.unshift(apt);
     this.setState({
       myAppointments: tempApts,
-      lastIndex: this.state.lastIndex + 1,
+      lastIndex: lastIndex + 1,
     });
   }
 
   toggleForm() {
+    const { formDisplay } = this.state;
     this.setState({
-      formDisplay: !this.state.formDisplay,
+      formDisplay: !formDisplay,
     });
   }
 
   deleteAppointment(apt) {
-    let tempApts = this.state.myAppointments;
+    const { myAppointments } = this.state;
+    let tempApts = myAppointments;
     tempApts = without(tempApts, apt);
     this.setState({
       myAppointments: tempApts,
     });
   }
 
-  componentDidMount() {
-    fetch('./data.json')
-      .then((response) => response.json())
-      .then((result) => {
-        const apts = result.map((item) => {
-          item.aptId = this.state.lastIndex;
-          this.setState({
-            lastIndex: this.state.lastIndex + 1,
-          });
-          return item;
-        });
-        this.setState({
-          myAppointments: apts,
-        });
-      });
+  updateInfo(name, value, id) {
+    const { myAppointments } = this.state;
+    const tempApts = myAppointments;
+    const aptIndex = findIndex(myAppointments, {
+      aptId: id,
+    });
+    tempApts[aptIndex][name] = value;
+    this.setState({
+      myAppointments: tempApts,
+    });
   }
 
   render() {
+    const {
+      myAppointments,
+      orderDir,
+      orderBy,
+      queryText,
+      formDisplay,
+    } = this.state;
     let order;
-    let filteredApts = this.state.myAppointments;
-    if (this.state.orderDir === 'asc') {
+    let filteredApts = myAppointments;
+    if (orderDir === 'asc') {
       order = 1;
     } else {
       order = -1;
@@ -101,25 +113,22 @@ class App extends Component {
 
     filteredApts = filteredApts
       .sort((a, b) => {
-        if (
-          a[this.state.orderBy].toLowerCase()
-          < b[this.state.orderBy].toLowerCase()
-        ) {
+        if (a[orderBy].toLowerCase() < b[orderBy].toLowerCase()) {
           return -1 * order;
         }
         return 1 * order;
       })
-      .filter((eachItem) => (
-        eachItem.petName
+      .filter(
+        (eachItem) => eachItem.petName
           .toLowerCase()
-          .includes(this.state.queryText.toLocaleLowerCase())
+          .includes(queryText.toLocaleLowerCase())
           || eachItem.ownerName
             .toLowerCase()
-            .includes(this.state.queryText.toLocaleLowerCase())
+            .includes(queryText.toLocaleLowerCase())
           || eachItem.aptNotes
             .toLowerCase()
-            .includes(this.state.queryText.toLocaleLowerCase())
-      ));
+            .includes(queryText.toLocaleLowerCase()),
+      );
 
     return (
       <main className="page bg-white" id="petratings">
@@ -128,13 +137,13 @@ class App extends Component {
             <div className="col-md-12 bg-white">
               <div className="container">
                 <AddAppointments
-                  formDisplay={this.state.formDisplay}
+                  formDisplay={formDisplay}
                   toggleForm={this.toggleForm}
                   addAppointments={this.addAppointments}
                 />
                 <SearchAppointments
-                  orderBy={this.state.orderBy}
-                  orderDir={this.state.orderDir}
+                  orderBy={orderBy}
+                  orderDir={orderDir}
                   changeOrder={this.changeOrder}
                   searchApts={this.searchApts}
                 />

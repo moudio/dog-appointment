@@ -1,90 +1,98 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class SearchAppointments extends React.Component {
-  render() {
-    return (
-      <div className="search-appointments row justify-content-center my-4">
-        <div className="col-md-6">
-          <div className="input-group">
-            <input
-              id="SearchApts"
-              type="text"
-              className="form-control"
-              aria-label="Search Appointments"
-              onChange={(e) => this.props.searchApts(e.target.value)}
-            />
-            <div className="input-group-append">
+function SearchAppointments({
+  searchApts, orderBy, orderDir, changeOrder,
+}) {
+  return (
+    <div className="search-appointments row justify-content-center my-4">
+      <div className="col-md-6">
+        <div className="input-group">
+          <input
+            id="SearchApts"
+            type="text"
+            className="form-control"
+            aria-label="Search Appointments"
+            onChange={(e) => searchApts(e.target.value)}
+          />
+          <div className="input-group-append">
+            <button
+              type="button"
+              className="btn btn-primary dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Sort by:
+              {' '}
+              <span className="caret" />
+            </button>
+
+            <div className="sort-menu dropdown-menu dropdown-menu-right">
+              <button
+                className={`sort-by dropdown-item ${
+                  orderBy === 'petName' ? 'active' : ''
+                }`}
+                href="#"
+                onClick={() => changeOrder('petName', orderDir)}
+                type="button"
+              >
+                Pet Name
+              </button>
               <button
                 type="button"
-                className="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
+                className={`sort-by dropdown-item ${
+                  orderBy === 'aptDate' ? 'active' : ''
+                }`}
+                href="#"
+                onClick={() => changeOrder('aptDate', orderDir)}
               >
-                Sort by:
-                {' '}
-                <span className="caret" />
+                Date
               </button>
-
-              <div className="sort-menu dropdown-menu dropdown-menu-right">
-                <button
-                  className={
-                    `sort-by dropdown-item ${
-                      this.props.orderBy === 'petName' ? 'active' : ''}`
-                  }
-                  href="#"
-                  onClick={(e) => this.props.changeOrder('petName', this.props.orderDir)}
-                >
-                  Pet Name
-                </button>
-                <button
-                  className={
-                    `sort-by dropdown-item ${
-                      this.props.orderBy === 'aptDate' ? 'active' : ''}`
-                  }
-                  href="#"
-                  onClick={(e) => this.props.changeOrder('aptDate', this.props.orderDir)}
-                >
-                  Date
-                </button>
-                <button
-                  className={
-                    `sort-by dropdown-item ${
-                      this.props.orderBy === 'ownerName' ? 'active' : ''}`
-                  }
-                  href="#"
-                  onClick={(e) => this.props.changeOrder('ownerName', this.props.orderDir)}
-                >
-                  Owner
-                </button>
-                <div role="separator" className="dropdown-divider" />
-                <button
-                  className={
-                    `sort-by dropdown-item ${
-                      this.props.orderDir === 'asc' ? 'active' : ''}`
-                  }
-                  href="#"
-                  onClick={(e) => this.props.changeOrder(this.props.orderBy, 'asc')}
-                >
-                  Asc
-                </button>
-                <button
-                  className={
-                    `sort-by dropdown-item ${
-                      this.props.orderDir === 'desc' ? 'active' : ''}`
-                  }
-                  href="#"
-                  onClick={(e) => this.props.changeOrder(this.props.orderBy, 'desc')}
-                >
-                  Desc
-                </button>
-              </div>
+              <button
+                type="button"
+                className={`sort-by dropdown-item ${
+                  orderBy === 'ownerName' ? 'active' : ''
+                }`}
+                href="#"
+                onClick={() => changeOrder('ownerName', orderDir)}
+              >
+                Owner
+              </button>
+              <div role="separator" className="dropdown-divider" />
+              <button
+                type="button"
+                className={`sort-by dropdown-item ${
+                  orderDir === 'asc' ? 'active' : ''
+                }`}
+                href="#"
+                onClick={() => changeOrder(orderBy, 'asc')}
+              >
+                Asc
+              </button>
+              <button
+                type="button"
+                className={`sort-by dropdown-item ${
+                  orderDir === 'desc' ? 'active' : ''
+                }`}
+                href="#"
+                onClick={() => changeOrder(orderBy, 'desc')}
+              >
+                Desc
+              </button>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+SearchAppointments.propTypes = {
+  searchApts: PropTypes.func.isRequired,
+  orderBy: PropTypes.string.isRequired,
+  orderDir: PropTypes.string.isRequired,
+  changeOrder: PropTypes.func.isRequired,
+};
 
 export default SearchAppointments;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 import Moment from 'react-moment';
+import PropTypes from 'prop-types';
 
 function ListAppointments({ appointments, deleteAppointment, updateInfo }) {
   return (
@@ -9,6 +10,7 @@ function ListAppointments({ appointments, deleteAppointment, updateInfo }) {
         <div className="pet-item col media py-3" key={item.aptId}>
           <div className="mr-3">
             <button
+              type="button"
               className="pet-delete btn btn-sm btn-danger"
               onClick={() => {
                 deleteAppointment(item);
@@ -61,5 +63,11 @@ function ListAppointments({ appointments, deleteAppointment, updateInfo }) {
     </div>
   );
 }
+
+ListAppointments.propTypes = {
+  appointments: PropTypes.instanceOf(Array).isRequired,
+  deleteAppointment: PropTypes.func.isRequired,
+  updateInfo: PropTypes.func.isRequired,
+};
 
 export default ListAppointments;

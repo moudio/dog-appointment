@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import PropTypes from 'prop-types';
+
 class AddAppointments extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +17,9 @@ class AddAppointments extends Component {
   }
 
   handleAdd(e) {
-    const { petName, ownerName, aptDate, aptTime, aptNotes } = this.state;
+    const {
+      petName, ownerName, aptDate, aptTime, aptNotes,
+    } = this.state;
 
     const { addAppointments, toggleForm } = this.props;
     e.preventDefault();
@@ -47,17 +50,23 @@ class AddAppointments extends Component {
   }
 
   render() {
+    const { formDisplay, toggleForm } = this.props;
+    const {
+      petName, ownerName, aptDate, aptTime, aptNotes,
+    } = this.state;
     return (
       <div
         className={`card textcenter mt-3 ${
-          this.props.formDisplay ? '' : 'add-appointment'
+          formDisplay ? '' : 'add-appointment'
         }`}
       >
         <div
           className="apt-addheading card-header bg-primary text-white"
-          onClick={this.props.toggleForm}
+          onClick={toggleForm}
         >
-          <FaPlus /> Add Appointment
+          <FaPlus />
+          {' '}
+          Add Appointment
         </div>
 
         <div className="card-body">
@@ -69,17 +78,18 @@ class AddAppointments extends Component {
                 readOnly
               >
                 Pet Name
+                <div className="col-md-10">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="petName"
+                    id="petName"
+                    placeholder="Pet's Name"
+                    value={petName}
+                    onChange={this.handleChange}
+                  />
+                </div>
               </label>
-              <div className="col-md-10">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="petName"
-                  placeholder="Pet's Name"
-                  value={this.state.petName}
-                  onChange={this.handleChange}
-                />
-              </div>
             </div>
 
             <div className="form-group form-row">
@@ -88,17 +98,17 @@ class AddAppointments extends Component {
                 htmlFor="ownerName"
               >
                 Pet Owner
+                <div className="col-md-10">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="ownerName"
+                    placeholder="Owner's Name"
+                    value={ownerName}
+                    onChange={this.handleChange}
+                  />
+                </div>
               </label>
-              <div className="col-md-10">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="ownerName"
-                  placeholder="Owner's Name"
-                  value={this.state.ownerName}
-                  onChange={this.handleChange}
-                />
-              </div>
             </div>
 
             <div className="form-group form-row">
@@ -107,51 +117,52 @@ class AddAppointments extends Component {
                 htmlFor="aptDate"
               >
                 Date
+                <div className="col-md-4">
+                  <input
+                    type="date"
+                    className="form-control"
+                    name="aptDate"
+                    id="aptDate"
+                    value={aptDate}
+                    onChange={this.handleChange}
+                  />
+                </div>
               </label>
-              <div className="col-md-4">
-                <input
-                  type="date"
-                  className="form-control"
-                  name="aptDate"
-                  id="aptDate"
-                  value={this.state.aptDate}
-                  onChange={this.handleChange}
-                />
-              </div>
+
               <label
                 className="col-md-2 col-form-label text-md-right"
                 htmlFor="aptTime"
               >
                 Time
+                <div className="col-md-4">
+                  <input
+                    type="time"
+                    className="form-control"
+                    name="aptTime"
+                    id="aptTime"
+                    value={aptTime}
+                    onChange={this.handleChange}
+                  />
+                </div>
               </label>
-              <div className="col-md-4">
-                <input
-                  type="time"
-                  className="form-control"
-                  name="aptTime"
-                  id="aptTime"
-                  value={this.state.aptTime}
-                  onChange={this.handleChange}
-                />
-              </div>
             </div>
 
             <div className="form-group form-row">
               <label className="col-md-2 text-md-right" htmlFor="aptNotes">
                 Apt. Notes
+                <div className="col-md-10">
+                  <textarea
+                    className="form-control"
+                    rows="4"
+                    cols="50"
+                    name="aptNotes"
+                    id="aptNotes"
+                    placeholder="Appointment Notes"
+                    value={aptNotes}
+                    onChange={this.handleChange}
+                  />
+                </div>
               </label>
-              <div className="col-md-10">
-                <textarea
-                  className="form-control"
-                  rows="4"
-                  cols="50"
-                  name="aptNotes"
-                  id="aptNotes"
-                  placeholder="Appointment Notes"
-                  value={this.state.aptNotes}
-                  onChange={this.handleChange}
-                />
-              </div>
             </div>
 
             <div className="form-group form-row mb-0">
@@ -170,5 +181,11 @@ class AddAppointments extends Component {
     );
   }
 }
+
+AddAppointments.propTypes = {
+  addAppointments: PropTypes.func.isRequired,
+  toggleForm: PropTypes.func.isRequired,
+  formDisplay: PropTypes.string.isRequired,
+};
 
 export default AddAppointments;
