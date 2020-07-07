@@ -2,7 +2,7 @@ import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 import Moment from 'react-moment';
 import { timers } from 'jquery';
-function ListAppointments({ appointments, deleteAppointment }) {
+function ListAppointments({ appointments, deleteAppointment, updateInfo }) {
   return (
     <div className="appointment-list item-list mb-3">
       {appointments.map((item) => (
@@ -20,7 +20,16 @@ function ListAppointments({ appointments, deleteAppointment }) {
 
           <div className="pet-info media-body">
             <div className="pet-head d-flex">
-              <span className="pet-name">{item.petName}</span>
+              <span
+                className="pet-name"
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={(e) =>
+                  updateInfo('petName', e.target.innerText, item.aptId)
+                }
+              >
+                {item.petName}
+              </span>
               <span className="apt-date ml-auto">
                 <Moment
                   date={item.aptDate}
@@ -32,9 +41,26 @@ function ListAppointments({ appointments, deleteAppointment }) {
 
             <div className="owner-name">
               <span className="label-item">Owner: </span>
-              <span>{item.ownerName}</span>
+              <span
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={(e) =>
+                  updateInfo('ownerName', e.target.innerText, item.aptId)
+                }
+              >
+                {item.ownerName}
+              </span>
             </div>
-            <div className="apt-notes">{item.aptNotes}</div>
+            <div
+              className="apt-notes"
+              contentEditable
+              suppressContentEditableWarning
+              onBlur={(e) =>
+                updateInfo('aptNotes', e.target.innerText, item.aptId)
+              }
+            >
+              {item.aptNotes}
+            </div>
           </div>
         </div>
       ))}
