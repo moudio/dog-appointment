@@ -1,0 +1,27 @@
+/**  Basic Page CSS **/
+body {
+  font-weight: 200;
+}
+
+header a,
+footer a {
+  color: white;
+}
+
+footer {
+  font-size: 0.8em;
+}
+
+.bg-primary,
+.btn-primary {
+  background-color: #377bb5 !important;
+  border: inherit;
+}
+
+.jumbotron {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+    url('../pictures/background.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
